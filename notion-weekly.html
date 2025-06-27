@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sticker Widget</title>
+  <style>
+    body {
+      background: #fdf8f2;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .widget {
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      background: #fffaf5;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #eee2ce;
+    }
+
+    .calendar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid #eee2ce;
+      padding-bottom: 10px;
+    }
+
+    .day {
+      flex: 1 1 calc(33.33% - 10px);
+      min-width: 100px;
+      text-align: center;
+      font-weight: bold;
+      color: #6b4b30;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 600px) {
+      .day {
+        flex: 1 1 calc(50% - 10px);
+      }
+    }
+
+    @media (max-width: 400px) {
+      .day {
+        flex: 1 1 100%;
+      }
+    }
+
+    .slot {
+      height: 50px;
+      margin-top: 10px;
+    }
+
+    .sticker-section {
+      margin-top: 20px;
+    }
+
+    .toggle {
+      cursor: pointer;
+      font-weight: bold;
+      color: #6b4b30;
+      margin-bottom: 10px;
+    }
+
+    .stickers {
+      display: none;
+      gap: 10px;
+      flex-wrap: wrap;
+      display: flex;
+    }
+
+    .stickers img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      background: white;
+      border: 2px solid #eee;
+    }
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <div class="calendar">
+      <div class="day" data-day="MON">MON<div class="slot" data-day="MON"></div></div>
+      <div class="day" data-day="TUE">TUE<div class="slot" data-day="TUE"></div></div>
+      <div class="day" data-day="WED">WED<div class="slot" data-day="WED"></div></div>
+      <div class="day" data-day="THU">THU<div class="slot" data-day="THU"></div></div>
+      <div class="day" data-day="FRI">FRI<div class="slot" data-day="FRI"></div></div>
+      <div class="day" data-day="SAT">SAT<div class="slot" data-day="SAT"></div></div>
+      <div class="day" data-day="SUN">SUN<div class="slot" data-day="SUN"></div></div>
+    </div>
+
+    <div class="sticker-section">
+      <div class="toggle" id="toggle">▼ STICKER</div>
+      <div class="stickers" id="stickerPanel">
+        <img src="https://via.placeholder.com/40/ffa5a5/ffffff?text=+" class="sticker" data-sticker="https://via.placeholder.com/40/ffa5a5/ffffff?text=+" />
+        <img src="https://via.placeholder.com/40/a5cfff/ffffff?text=+" class="sticker" data-sticker="https://via.placeholder.com/40/a5cfff/ffffff?text=+" />
+        <img src="https://via.placeholder.com/40/b8f7d4/ffffff?text=+" class="sticker" data-sticker="https://via.placeholder.com/40/b8f7d4/ffffff?text=+" />
+        <img src="https://via.placeholder.com/40/d4c0ff/ffffff?text=+" class="sticker" data-sticker="https://via.placeholder.com/40/d4c0ff/ffffff?text=+" />
+        <img src="https://via.placeholder.com/40/ffe38c/ffffff?text=+" class="sticker" data-sticker="https://via.placeholder.com/40/ffe38c/ffffff?text=+" />
+      </div>
+    </div>
+  </div>
+  <script>
+    const toggle = document.getElementById("toggle");
+    const panel = document.getElementById("stickerPanel");
+    let selectedDay = null;
+
+    document.querySelectorAll(".slot").forEach(slot => {
+      slot.addEventListener("click", () => {
+        selectedDay = slot.getAttribute("data-day");
+        panel.style.display = panel.style.display === "flex" ? "none" : "flex";
+      });
+    });
+
+    document.querySelectorAll(".sticker").forEach(sticker => {
+      sticker.addEventListener("click", () => {
+        if (!selectedDay) return;
+        const imageUrl = sticker.getAttribute("data-sticker");
+        const slot = document.querySelector(`.slot[data-day='${selectedDay}']`);
+        slot.innerHTML = `<img src="${imageUrl}" width="40" height="40" />`;
+        localStorage.setItem(selectedDay, imageUrl);
+        panel.style.display = "none";
+      });
+    });
+
+    window.addEventListener("load", () => {
+      document.querySelectorAll(".slot").forEach(slot => {
+        const day = slot.getAttribute("data-day");
+        const saved = localStorage.getItem(day);
+        if (saved) {
+          slot.innerHTML = `<img src="${saved}" width="40" height="40" />`;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
