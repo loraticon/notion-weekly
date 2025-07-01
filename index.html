@@ -72,6 +72,10 @@
       display: flex;
     }
 
+    .reset-container {
+      margin-top: 8px;  /* STICKER 아래 간격 */
+    }
+
     .reset-btn {
       color: #60492F;
       background-color: #FFFFFF;
@@ -82,6 +86,7 @@
       cursor: pointer;
       margin-top: 10px;
       border-radius: 4px;
+      display: inline-block;
     }
 
     .sticker {
@@ -163,8 +168,10 @@
   <div class="sticker-toggle">
     <span class="sticker-icon">▶</span> STICKER
   </div>
-  
-  <button class="reset-btn">Reset</button>
+
+  <div class="reset-container">
+    <button class="reset-btn">Reset</button>
+  </div>
   
   <div class="sticker-options">
     <div class="sticker" data-sticker="sticker1"><img src="1-blue.svg" alt="sticker1"></div>
