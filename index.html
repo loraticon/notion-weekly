@@ -123,3 +123,33 @@
     <div class="sticker" data-sticker="sticker3"><img src="3-green.svg" alt="sticker3"></div>
     <div class="sticker" data-sticker="sticker4"><img src="4-red.svg" alt="sticker4"></div>
     <div class="sticker" data-sticker="sticker5"><img src="5-yellow.svg" alt="sticker5"></div>
+
+<script>
+    const toggle = document.querySelector('.sticker-toggle');
+    const options = document.querySelector('.sticker-options');
+    const stickers = document.querySelectorAll('.sticker');
+    let activeStickerSrc = null;
+
+    toggle.addEventListener('click', () => {
+      options.classList.toggle('active');
+    });
+
+    stickers.forEach(sticker => {
+      sticker.addEventListener('click', () => {
+        stickers.forEach(s => s.classList.remove('active'));
+        sticker.classList.add('active');
+        activeStickerSrc = sticker.querySelector('img').src;
+      });
+    });
+
+    document.querySelectorAll('td').forEach(cell => {
+      cell.addEventListener('click', () => {
+        if (activeStickerSrc) {
+          cell.innerHTML = `<img src="${activeStickerSrc}" class="cell-sticker" alt="sticker">`;
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
