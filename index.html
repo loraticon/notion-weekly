@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Responsive Sticker Table</title>
+  <title>week-tracker</title>
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
   <style>
     body {
-      background-color: #fcf9ef;
+      background-color: #FDF7EE;
       font-family: 'Pretendard', sans-serif;
       padding: 20px;
     }
@@ -18,7 +18,7 @@
 
     table {
       width: 100%;
-      min-width: 400px; /* 최소 크기: 모바일에서도 스크롤 가능 */
+      min-width: 400px;
       border-collapse: separate;
       border-spacing: 0;
       background-color: #FFFFFF;
@@ -102,7 +102,6 @@
       border-radius: 50%;
     }
 
-    /* 반응형 */
     @media (max-width: 600px) {
       th {
         font-size: 0.9rem;
@@ -120,7 +119,6 @@
         height: 28px;
       }
     }
-
   </style>
 </head>
 <body>
@@ -156,11 +154,11 @@
     <span class="sticker-icon">▶</span> STICKER
   </div>
   <div class="sticker-options">
-    <div class="sticker" data-sticker="sticker1"><img src="1-blue.svg" alt="sticker1"></div>
-    <div class="sticker" data-sticker="sticker2"><img src="2-purple.svg" alt="sticker2"></div>
-    <div class="sticker" data-sticker="sticker3"><img src="3-green.svg" alt="sticker3"></div>
-    <div class="sticker" data-sticker="sticker4"><img src="4-red.svg" alt="sticker4"></div>
-    <div class="sticker" data-sticker="sticker5"><img src="5-yellow.svg" alt="sticker5"></div>
+    <div class="sticker" data-sticker="sticker1"><img src="sticker1.svg" alt="sticker1"></div>
+    <div class="sticker" data-sticker="sticker2"><img src="sticker2.svg" alt="sticker2"></div>
+    <div class="sticker" data-sticker="sticker3"><img src="sticker3.svg" alt="sticker3"></div>
+    <div class="sticker" data-sticker="sticker4"><img src="sticker4.svg" alt="sticker4"></div>
+    <div class="sticker" data-sticker="sticker5"><img src="sticker5.svg" alt="sticker5"></div>
   </div>
 
   <script>
@@ -168,13 +166,16 @@
     const options = document.querySelector('.sticker-options');
     const icon = document.querySelector('.sticker-icon');
     const stickers = document.querySelectorAll('.sticker');
+    const cells = document.querySelectorAll('td');
     let activeStickerSrc = null;
 
+    // 토글 아이콘 변경
     toggle.addEventListener('click', () => {
       options.classList.toggle('active');
       icon.textContent = options.classList.contains('active') ? '▼' : '▶';
     });
 
+    // 스티커 선택
     stickers.forEach(sticker => {
       sticker.addEventListener('click', () => {
         stickers.forEach(s => s.classList.remove('active'));
@@ -183,12 +184,22 @@
       });
     });
 
-    document.querySelectorAll('td').forEach(cell => {
+    // 셀 클릭 시 스티커 적용 + localStorage 저장
+    cells.forEach((cell, index) => {
       cell.addEventListener('click', () => {
         if (activeStickerSrc) {
           cell.innerHTML = `<img src="${activeStickerSrc}" class="cell-sticker" alt="sticker">`;
+          localStorage.setItem(`sticker-${index}`, activeStickerSrc);
         }
       });
+    });
+
+    // 새로고침 시 localStorage 값 복원
+    cells.forEach((cell, index) => {
+      const savedSrc = localStorage.getItem(`sticker-${index}`);
+      if (savedSrc) {
+        cell.innerHTML = `<img src="${savedSrc}" class="cell-sticker" alt="sticker">`;
+      }
     });
   </script>
 
