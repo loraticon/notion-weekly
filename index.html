@@ -8,65 +8,84 @@
     body {
       background-color: #FDF7EE;
       font-family: 'Pretendard', sans-serif;
-      padding: 20px;
+      padding: 30px;
     }
+
     table {
       width: 100%;
-      border-collapse: collapse;
-      text-align: center;
+      border-collapse: separate;
+      border-spacing: 0;
+      background-color: #FFFFFF;
+      border: 1px solid #EFE6DB;
+      border-radius: 10px;
+      overflow: hidden;
     }
-    th {
-      color: #60492F;
-      font-weight: bold;
-      padding: 10px;
-    }
-    td {
-      height: 50px;
-      cursor: pointer;
-      position: relative;
-    }
+
     thead {
       border-bottom: 1px solid #EFE6DB;
     }
-    .sticker-toggle {
-      display: flex;
-      align-items: center;
+
+    th {
       color: #60492F;
       font-weight: bold;
-      margin: 10px 0;
-      cursor: pointer;
+      padding: 12px;
     }
+
+    td {
+      height: 60px;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      background-color: transparent;
+    }
+
+    .sticker-toggle {
+      color: #60492F;
+      font-weight: bold;
+      margin-top: 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+
     .sticker-options {
       display: none;
       gap: 10px;
       margin: 10px 0;
+      flex-wrap: wrap;
     }
+
     .sticker-options.active {
       display: flex;
     }
+
     .sticker {
       width: 36px;
       height: 36px;
       border-radius: 50%;
       position: relative;
     }
+
     .sticker img {
       width: 100%;
       height: 100%;
       border-radius: 50%;
     }
+
     .sticker.active::after {
-      content: "✔";
+      content: '✔';
       color: #60492F;
       font-size: 16px;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      pointer-events: none;
     }
+
     .cell-sticker {
       width: 36px;
       height: 36px;
+      border-radius: 50%;
     }
   </style>
 </head>
@@ -75,51 +94,28 @@
   <table>
     <thead>
       <tr>
-        <th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th><th>SUN</th>
+        <th>MON</th>
+        <th>TUE</th>
+        <th>WED</th>
+        <th>THU</th>
+        <th>FRI</th>
+        <th>SAT</th>
+        <th>SUN</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
 
   <div class="sticker-toggle">▼ STICKER</div>
   <div class="sticker-options">
-    <div class="sticker" data-sticker="sticker1"><img src="sticker1.svg" alt="sticker1"></div>
-    <div class="sticker" data-sticker="sticker2"><img src="sticker2.svg" alt="sticker2"></div>
-    <div class="sticker" data-sticker="sticker3"><img src="sticker3.svg" alt="sticker3"></div>
-    <div class="sticker" data-sticker="sticker4"><img src="sticker4.svg" alt="sticker4"></div>
-    <div class="sticker" data-sticker="sticker5"><img src="sticker5.svg" alt="sticker5"></div>
-  </div>
-
-  <script>
-    const toggle = document.querySelector('.sticker-toggle');
-    const options = document.querySelector('.sticker-options');
-    const stickers = document.querySelectorAll('.sticker');
-    let activeSticker = null;
-
-    toggle.addEventListener('click', () => {
-      options.classList.toggle('active');
-    });
-
-    stickers.forEach(sticker => {
-      sticker.addEventListener('click', () => {
-        stickers.forEach(s => s.classList.remove('active'));
-        sticker.classList.add('active');
-        activeSticker = sticker.querySelector('img').src;
-      });
-    });
-
-    document.querySelectorAll('td').forEach(cell => {
-      cell.addEventListener('click', () => {
-        if (activeSticker) {
-          cell.innerHTML = `<img src="${activeSticker}" class="cell-sticker">`;
-        }
-      });
-    });
-  </script>
-
-</body>
-</html>
+    <div class="sticker" data-sticker="sticker1"><img src="sticker1.svg" alt="sticker1"></div
