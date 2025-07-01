@@ -1,120 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sticker Widget</title>
+  <meta charset="UTF-8" />
+  <title>Sticker Table</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
   <style>
     body {
-      background: #fdf8f2;
-      font-family: sans-serif;
-      margin: 0;
+      background-color: #FDF7EE;
+      font-family: 'Pretendard', sans-serif;
       padding: 20px;
     }
-    .widget {
-      max-width: 100%;
+    table {
       width: 100%;
-      background: #fffaf5;
-      padding: 20px;
-      border-radius: 12px;
-      border: 1px solid #eee2ce;
-      box-sizing: border-box;
-    }
-    .calendar {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      border-bottom: 1px solid #eee2ce;
-    }
-    .day {
+      border-collapse: collapse;
       text-align: center;
+    }
+    th {
+      color: #60492F;
       font-weight: bold;
-      color: #6b4b30;
-      padding: 10px 0;
-      border-right: 1px solid #eee2ce;
-      box-sizing: border-box;
+      padding: 10px;
     }
-    .day:last-child {
-      border-right: none;
-    }
-    .slot {
+    td {
       height: 50px;
-      margin-top: 5px;
-    }
-    .sticker-section {
-      margin-top: 20px;
-    }
-    .toggle {
       cursor: pointer;
-      font-weight: bold;
-      color: #6b4b30;
-      margin-bottom: 10px;
+      position: relative;
     }
-    .stickers {
+    thead {
+      border-bottom: 1px solid #EFE6DB;
+    }
+    .sticker-toggle {
+      display: flex;
+      align-items: center;
+      color: #60492F;
+      font-weight: bold;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+    .sticker-options {
       display: none;
       gap: 10px;
-      flex-wrap: wrap;
+      margin: 10px 0;
+    }
+    .sticker-options.active {
       display: flex;
     }
-    .stickers img {
-      width: 40px;
-      height: 40px;
+    .sticker {
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      cursor: pointer;
-      background: white;
-      border: 2px solid #eee;
+      position: relative;
+    }
+    .sticker img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+    .sticker.active::after {
+      content: "✔";
+      color: #60492F;
+      font-size: 16px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .cell-sticker {
+      width: 36px;
+      height: 36px;
     }
   </style>
 </head>
 <body>
-  <div class="widget">
-    <div class="calendar">
-      <div class="day" data-day="MON">MON<div class="slot" data-day="MON"></div></div>
-      <div class="day" data-day="TUE">TUE<div class="slot" data-day="TUE"></div></div>
-      <div class="day" data-day="WED">WED<div class="slot" data-day="WED"></div></div>
-      <div class="day" data-day="THU">THU<div class="slot" data-day="THU"></div></div>
-      <div class="day" data-day="FRI">FRI<div class="slot" data-day="FRI"></div></div>
-      <div class="day" data-day="SAT">SAT<div class="slot" data-day="SAT"></div></div>
-      <div class="day" data-day="SUN">SUN<div class="slot" data-day="SUN"></div></div>
-    </div>
-    <div class="sticker-section">
-      <div class="toggle" id="toggle">▼ STICKER</div>
-      <div class="stickers" id="stickerPanel">
-        <img src="https://loraticon.github.io/notioin-weekly/red.png" class="sticker" data-sticker="https://loraticon.github.io/notion-weekly/red.png" /> 
-        <img src="https://via.placeholder.com/40/a5cfff/ffffff?text=+" class="sticker" data-sticker="https://via.placeholder.com/40/a5cfff/ffffff?text=+" />
-        <img src="https://via.placeholder.com/40/b8f7d4/ffffff?text=+" class="sticker" data-sticker="https://via.placeholder.com/40/b8f7d4/ffffff?text=+" />
-        <img src="https://via.placeholder.com/40/d4c0ff/ffffff?text=+" class="sticker" data-sticker="https://via.placeholder.com/40/d4c0ff/ffffff?text=+" />
-        <img src="https://via.placeholder.com/40/ffe38c/ffffff?text=+" class="sticker" data-sticker="https://via.placeholder.com/40/ffe38c/ffffff?text=+" />
-      </div>
-    </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th><th>SUN</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="sticker-toggle">▼ STICKER</div>
+  <div class="sticker-options">
+    <div class="sticker" data-sticker="sticker1"><img src="sticker1.svg" alt="sticker1"></div>
+    <div class="sticker" data-sticker="sticker2"><img src="sticker2.svg" alt="sticker2"></div>
+    <div class="sticker" data-sticker="sticker3"><img src="sticker3.svg" alt="sticker3"></div>
+    <div class="sticker" data-sticker="sticker4"><img src="sticker4.svg" alt="sticker4"></div>
+    <div class="sticker" data-sticker="sticker5"><img src="sticker5.svg" alt="sticker5"></div>
   </div>
+
   <script>
-    let selectedDay = null;
-    document.querySelectorAll(".slot").forEach(slot => {
-      slot.addEventListener("click", () => {
-        selectedDay = slot.getAttribute("data-day");
-        const panel = document.getElementById("stickerPanel");
-        panel.style.display = panel.style.display === "flex" ? "none" : "flex";
+    const toggle = document.querySelector('.sticker-toggle');
+    const options = document.querySelector('.sticker-options');
+    const stickers = document.querySelectorAll('.sticker');
+    let activeSticker = null;
+
+    toggle.addEventListener('click', () => {
+      options.classList.toggle('active');
+    });
+
+    stickers.forEach(sticker => {
+      sticker.addEventListener('click', () => {
+        stickers.forEach(s => s.classList.remove('active'));
+        sticker.classList.add('active');
+        activeSticker = sticker.querySelector('img').src;
       });
     });
-    document.querySelectorAll(".sticker").forEach(sticker => {
-      sticker.addEventListener("click", () => {
-        if (!selectedDay) return;
-        const imageUrl = sticker.getAttribute("data-sticker");
-        const slot = document.querySelector(`.slot[data-day='${selectedDay}']`);
-        slot.innerHTML = `<img src="${imageUrl}" width="40" height="40">`;
-        localStorage.setItem(selectedDay, imageUrl);
-        document.getElementById("stickerPanel").style.display = "none";
-      });
-    });
-    window.addEventListener("load", () => {
-      document.querySelectorAll(".slot").forEach(slot => {
-        const day = slot.getAttribute("data-day");
-        const saved = localStorage.getItem(day);
-        if (saved) {
-          slot.innerHTML = `<img src="${saved}" width="40" height="40">`;
+
+    document.querySelectorAll('td').forEach(cell => {
+      cell.addEventListener('click', () => {
+        if (activeSticker) {
+          cell.innerHTML = `<img src="${activeSticker}" class="cell-sticker">`;
         }
       });
     });
   </script>
+
 </body>
 </html>
