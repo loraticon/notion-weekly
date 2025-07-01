@@ -45,6 +45,14 @@
       margin-top: 20px;
       cursor: pointer;
       user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sticker-icon {
+  display: inline-block;
+  width: 16px;
     }
 
     .sticker-options {
@@ -116,7 +124,7 @@
     </tbody>
   </table>
 
-  <div class="sticker-toggle">▼ STICKER</div>
+  <div class="sticker-toggle"><span class="sticker-icon">▶</span>STICKER</div>
   <div class="sticker-options">
     <div class="sticker" data-sticker="sticker1"><img src="1-blue.svg" alt="sticker1"></div>
     <div class="sticker" data-sticker="sticker2"><img src="2-purple.svg" alt="sticker2"></div>
@@ -128,28 +136,34 @@
   <script>
     const toggle = document.querySelector('.sticker-toggle');
     const options = document.querySelector('.sticker-options');
+    const icon = document.querySelector('.sticker-icon');
     const stickers = document.querySelectorAll('.sticker');
     let activeStickerSrc = null;
 
     toggle.addEventListener('click', () => {
-      options.classList.toggle('active');
-    });
+  options.classList.toggle('active');
+  if (options.classList.contains('active')) {
+    icon.textContent = '▼';
+  } else {
+    icon.textContent = '▶';
+  }
+});
 
-    stickers.forEach(sticker => {
-      sticker.addEventListener('click', () => {
-        stickers.forEach(s => s.classList.remove('active'));
-        sticker.classList.add('active');
-        activeStickerSrc = sticker.querySelector('img').src;
-      });
-    });
+stickers.forEach(sticker => {
+  sticker.addEventListener('click', () => {
+    stickers.forEach(s => s.classList.remove('active'));
+    sticker.classList.add('active');
+    activeStickerSrc = sticker.querySelector('img').src;
+  });
+});
 
-    document.querySelectorAll('td').forEach(cell => {
-      cell.addEventListener('click', () => {
-        if (activeStickerSrc) {
-          cell.innerHTML = `<img src="${activeStickerSrc}" class="cell-sticker" alt="sticker">`;
-        }
-      });
-    });
+document.querySelectorAll('td').forEach(cell => {
+  cell.addEventListener('click', () => {
+    if (activeStickerSrc) {
+      cell.innerHTML = `<img src="${activeStickerSrc}" class="cell-sticker" alt="sticker">`;
+    }
+  });
+});
   </script>
 
 </body>
