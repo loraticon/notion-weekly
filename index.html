@@ -2,17 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Sticker Table</title>
+  <title>Responsive Sticker Table</title>
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
   <style>
     body {
       background-color: #FDF7EE;
       font-family: 'Pretendard', sans-serif;
-      padding: 30px;
+      padding: 20px;
+    }
+
+    .table-container {
+      max-width: 100%;
+      overflow-x: auto;
     }
 
     table {
       width: 100%;
+      min-width: 400px; /* 최소 크기: 모바일에서도 스크롤 가능 */
       border-collapse: separate;
       border-spacing: 0;
       background-color: #FFFFFF;
@@ -28,7 +34,8 @@
     th {
       color: #60492F;
       font-weight: bold;
-      padding: 12px;
+      padding: 10px;
+      font-size: 1rem;
     }
 
     td {
@@ -36,7 +43,6 @@
       text-align: center;
       cursor: pointer;
       position: relative;
-      background-color: transparent;
     }
 
     .sticker-toggle {
@@ -51,8 +57,8 @@
     }
 
     .sticker-icon {
-  display: inline-block;
-  width: 16px;
+      display: inline-block;
+      width: 16px;
     }
 
     .sticker-options {
@@ -95,36 +101,60 @@
       height: 36px;
       border-radius: 50%;
     }
+
+    /* 반응형 */
+    @media (max-width: 600px) {
+      th {
+        font-size: 0.9rem;
+        padding: 8px;
+      }
+      td {
+        height: 50px;
+      }
+      .sticker {
+        width: 28px;
+        height: 28px;
+      }
+      .cell-sticker {
+        width: 28px;
+        height: 28px;
+      }
+    }
+
   </style>
 </head>
 <body>
 
-  <table>
-    <thead>
-      <tr>
-        <th>MON</th>
-        <th>TUE</th>
-        <th>WED</th>
-        <th>THU</th>
-        <th>FRI</th>
-        <th>SAT</th>
-        <th>SUN</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>MON</th>
+          <th>TUE</th>
+          <th>WED</th>
+          <th>THU</th>
+          <th>FRI</th>
+          <th>SAT</th>
+          <th>SUN</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <div class="sticker-toggle"><span class="sticker-icon">▶</span>STICKER</div>
+  <div class="sticker-toggle">
+    <span class="sticker-icon">▶</span> STICKER
+  </div>
   <div class="sticker-options">
     <div class="sticker" data-sticker="sticker1"><img src="1-blue.svg" alt="sticker1"></div>
     <div class="sticker" data-sticker="sticker2"><img src="2-purple.svg" alt="sticker2"></div>
@@ -141,29 +171,25 @@
     let activeStickerSrc = null;
 
     toggle.addEventListener('click', () => {
-  options.classList.toggle('active');
-  if (options.classList.contains('active')) {
-    icon.textContent = '▼';
-  } else {
-    icon.textContent = '▶';
-  }
-});
+      options.classList.toggle('active');
+      icon.textContent = options.classList.contains('active') ? '▼' : '▶';
+    });
 
-stickers.forEach(sticker => {
-  sticker.addEventListener('click', () => {
-    stickers.forEach(s => s.classList.remove('active'));
-    sticker.classList.add('active');
-    activeStickerSrc = sticker.querySelector('img').src;
-  });
-});
+    stickers.forEach(sticker => {
+      sticker.addEventListener('click', () => {
+        stickers.forEach(s => s.classList.remove('active'));
+        sticker.classList.add('active');
+        activeStickerSrc = sticker.querySelector('img').src;
+      });
+    });
 
-document.querySelectorAll('td').forEach(cell => {
-  cell.addEventListener('click', () => {
-    if (activeStickerSrc) {
-      cell.innerHTML = `<img src="${activeStickerSrc}" class="cell-sticker" alt="sticker">`;
-    }
-  });
-});
+    document.querySelectorAll('td').forEach(cell => {
+      cell.addEventListener('click', () => {
+        if (activeStickerSrc) {
+          cell.innerHTML = `<img src="${activeStickerSrc}" class="cell-sticker" alt="sticker">`;
+        }
+      });
+    });
   </script>
 
 </body>
