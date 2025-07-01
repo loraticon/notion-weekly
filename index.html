@@ -72,6 +72,18 @@
       display: flex;
     }
 
+    .reset-btn {
+      color: #60492F;
+      background-color: #FFFFFF;
+      border: 1px solid #60492F;
+      padding: 6px 12px;
+      font-family: 'Pretendard', sans-serif;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+
     .sticker {
       width: 36px;
       height: 36px;
@@ -151,6 +163,9 @@
   <div class="sticker-toggle">
     <span class="sticker-icon">▶</span> STICKER
   </div>
+  
+  <button class="reset-btn">Reset</button>
+  
   <div class="sticker-options">
     <div class="sticker" data-sticker="sticker1"><img src="1-blue.svg" alt="sticker1"></div>
     <div class="sticker" data-sticker="sticker2"><img src="2-purple.svg" alt="sticker2"></div>
@@ -170,40 +185,49 @@
     const icon = document.querySelector('.sticker-icon');
     const stickers = document.querySelectorAll('.sticker');
     const cells = document.querySelectorAll('td');
+    const resetBtn = document.querySelector('.reset-btn');
     let activeStickerSrc = null;
 
-    // 토글 아이콘 변경
+    // 토글 버튼
     toggle.addEventListener('click', () => {
-      options.classList.toggle('active');
-      icon.textContent = options.classList.contains('active') ? '▼' : '▶';
+    options.classList.toggle('active');
+    icon.textContent = options.classList.contains('active') ? '▼' : '▶';
     });
 
     // 스티커 선택
     stickers.forEach(sticker => {
-      sticker.addEventListener('click', () => {
-        stickers.forEach(s => s.classList.remove('active'));
-        sticker.classList.add('active');
-        activeStickerSrc = sticker.querySelector('img').src;
-      });
+    sticker.addEventListener('click', () => {
+    stickers.forEach(s => s.classList.remove('active'));
+    sticker.classList.add('active');
+    activeStickerSrc = sticker.querySelector('img').src;
+     });
     });
 
-    // 셀 클릭 시 스티커 적용 + localStorage 저장
-    cells.forEach((cell, index) => {
-      cell.addEventListener('click', () => {
-        if (activeStickerSrc) {
-          cell.innerHTML = `<img src="${activeStickerSrc}" class="cell-sticker" alt="sticker">`;
-          localStorage.setItem(`sticker-${index}`, activeStickerSrc);
-        }
-      });
-    });
+// 스티커 적용 + 저장
+cells.forEach((cell, index) => {
+  cell.addEventListener('click', () => {
+    if (activeStickerSrc) {
+      cell.innerHTML = `<img src="${activeStickerSrc}" class="cell-sticker" alt="sticker">`;
+      localStorage.setItem(`sticker-${index}`, activeStickerSrc);
+    }
+  });
+});
 
-    // 새로고침 시 localStorage 값 복원
-    cells.forEach((cell, index) => {
-      const savedSrc = localStorage.getItem(`sticker-${index}`);
-      if (savedSrc) {
-        cell.innerHTML = `<img src="${savedSrc}" class="cell-sticker" alt="sticker">`;
-      }
-    });
+// 상태 복원
+cells.forEach((cell, index) => {
+  const savedSrc = localStorage.getItem(`sticker-${index}`);
+  if (savedSrc) {
+    cell.innerHTML = `<img src="${savedSrc}" class="cell-sticker" alt="sticker">`;
+  }
+});
+
+// Reset 버튼 기능
+resetBtn.addEventListener('click', () => {
+  cells.forEach((cell, index) => {
+    cell.innerHTML = '';
+    localStorage.removeItem(`sticker-${index}`);
+  });
+});
   </script>
 
 </body>
