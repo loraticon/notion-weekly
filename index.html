@@ -10,12 +10,10 @@
       font-family: 'Pretendard', sans-serif;
       padding: 20px;
     }
-
     .table-container {
       max-width: 100%;
       overflow-x: auto;
     }
-
     table {
       width: 100%;
       min-width: 400px;
@@ -26,25 +24,21 @@
       border-radius: 10px;
       overflow: hidden;
     }
-
     thead {
       border-bottom: 1px solid #EFE6DB;
     }
-
     th {
       color: #60492F;
       font-weight: bold;
       padding: 10px;
       font-size: 1rem;
     }
-
     td {
       height: 60px;
       text-align: center;
       cursor: pointer;
       position: relative;
     }
-
     .sticker-toggle {
       color: #60492F;
       font-weight: bold;
@@ -55,33 +49,27 @@
       align-items: center;
       gap: 6px;
     }
-
     .sticker-icon {
       display: inline-block;
       width: 16px;
     }
-
     .sticker-options-wrapper {
       display: inline-block;
       margin-top: 8px;
     }
-
     .sticker-options {
       display: none;
       gap: 10px;
       margin: 10px 0;
       flex-wrap: wrap;
     }
-
     .sticker-options.active {
       display: flex;
     }
-
     .reset-container {
-      margin-top: 8px;  /* STICKER 아래 간격 */
+      margin-top: 8px;
       text-align: left;
     }
-
     .reset-btn {
       color: #60492F;
       background-color: #FFFFFF;
@@ -94,19 +82,16 @@
       border-radius: 4px;
       display: inline-block;
     }
-
     .sticker {
       width: 36px;
       height: 36px;
       border-radius: 50%;
       position: relative;
     }
-
     .sticker img {
       width: 100%;
       height: 100%;
     }
-
     .sticker.active::after {
       content: '✔';
       color: #60492F;
@@ -117,12 +102,10 @@
       transform: translate(-50%, -50%);
       pointer-events: none;
     }
-
     .cell-sticker {
       width: 36px;
       height: 36px;
     }
-
     @media (max-width: 600px) {
       th {
         font-size: 0.9rem;
@@ -143,29 +126,16 @@
   </style>
 </head>
 <body>
-
   <div class="table-container">
     <table>
       <thead>
         <tr>
-          <th>MON</th>
-          <th>TUE</th>
-          <th>WED</th>
-          <th>THU</th>
-          <th>FRI</th>
-          <th>SAT</th>
-          <th>SUN</th>
+          <th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th><th>SUN</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
         </tr>
       </tbody>
     </table>
@@ -176,22 +146,22 @@
   </div>
   <div class="sticker-wrapper">
     <div class="sticker-options">
-      <div class="sticker" data-sticker="sticker1"><img src="1-blue.svg" alt="sticker1"></div>
-      <div class="sticker" data-sticker="sticker2"><img src="2-purple.svg" alt="sticker2"></div>
-      <div class="sticker" data-sticker="sticker3"><img src="3-green.svg" alt="sticker3"></div>
-      <div class="sticker" data-sticker="sticker4"><img src="4-red.svg" alt="sticker4"></div>
-      <div class="sticker" data-sticker="sticker5"><img src="5-yellow.svg" alt="sticker5"></div>
-      <div class="sticker" data-sticker="sticker5"><img src="6-calm.svg" alt="sticker6"></div>
-      <div class="sticker" data-sticker="sticker5"><img src="7-happy.svg" alt="sticker7"></div>
-      <div class="sticker" data-sticker="sticker5"><img src="8-sick.svg" alt="sticker8"></div>
-      <div class="sticker" data-sticker="sticker5"><img src="9-neutral.svg" alt="sticker9"></div>
-      <div class="sticker" data-sticker="sticker5"><img src="10-angry.svg" alt="sticker10"></div>
+      <div class="sticker" data-sticker="1"><img src="1-blue.svg" alt="sticker1"></div>
+      <div class="sticker" data-sticker="2"><img src="2-purple.svg" alt="sticker2"></div>
+      <div class="sticker" data-sticker="3"><img src="3-green.svg" alt="sticker3"></div>
+      <div class="sticker" data-sticker="4"><img src="4-red.svg" alt="sticker4"></div>
+      <div class="sticker" data-sticker="5"><img src="5-yellow.svg" alt="sticker5"></div>
+      <div class="sticker" data-sticker="6"><img src="6-calm.svg" alt="sticker6"></div>
+      <div class="sticker" data-sticker="7"><img src="7-happy.svg" alt="sticker7"></div>
+      <div class="sticker" data-sticker="8"><img src="8-sick.svg" alt="sticker8"></div>
+      <div class="sticker" data-sticker="9"><img src="9-neutral.svg" alt="sticker9"></div>
+      <div class="sticker" data-sticker="10"><img src="10-angry.svg" alt="sticker10"></div>
     </div>
   </div> 
 
-    <div class="reset-container">
+  <div class="reset-container">
     <button class="reset-btn">Reset</button>
-    </div> 
+  </div> 
 
   <script>
     const toggle = document.querySelector('.sticker-toggle');
@@ -202,47 +172,75 @@
     const resetBtn = document.querySelector('.reset-btn');
     let activeStickerSrc = null;
 
-    // 토글 버튼
     toggle.addEventListener('click', () => {
-    options.classList.toggle('active');
-    icon.textContent = options.classList.contains('active') ? '▼' : '▶';
+      options.classList.toggle('active');
+      icon.textContent = options.classList.contains('active') ? '▼' : '▶';
     });
 
-    // 스티커 선택
     stickers.forEach(sticker => {
-    sticker.addEventListener('click', () => {
-    stickers.forEach(s => s.classList.remove('active'));
-    sticker.classList.add('active');
-    activeStickerSrc = sticker.querySelector('img').src;
-     });
+      sticker.addEventListener('click', () => {
+        stickers.forEach(s => s.classList.remove('active'));
+        sticker.classList.add('active');
+        activeStickerSrc = sticker.querySelector('img').src;
+      });
     });
 
-// 스티커 적용 + 저장
-cells.forEach((cell, index) => {
-  cell.addEventListener('click', () => {
-    if (activeStickerSrc) {
-      cell.innerHTML = `<img src="${activeStickerSrc}" class="cell-sticker" alt="sticker">`;
-      localStorage.setItem(`sticker-${index}`, activeStickerSrc);
+    // 스티커 적용 및 URL 해시에 상태 저장
+    cells.forEach((cell, index) => {
+      cell.addEventListener('click', () => {
+        if (activeStickerSrc) {
+          cell.innerHTML = `<img src="${activeStickerSrc}" class="cell-sticker" alt="sticker">`;
+          const state = getCurrentState();
+          updateHash(state);
+        }
+      });
+    });
+
+    // 현재 상태를 객체로 반환
+    function getCurrentState() {
+      const state = {};
+      cells.forEach((cell, index) => {
+        const img = cell.querySelector('img');
+        if (img) {
+          state[index] = img.src;
+        }
+      });
+      return state;
     }
-  });
-});
 
-// 상태 복원
-cells.forEach((cell, index) => {
-  const savedSrc = localStorage.getItem(`sticker-${index}`);
-  if (savedSrc) {
-    cell.innerHTML = `<img src="${savedSrc}" class="cell-sticker" alt="sticker">`;
-  }
-});
+    // 해시 업데이트 (base64 인코딩된 JSON)
+    function updateHash(stateObj) {
+      const json = JSON.stringify(stateObj);
+      const base64 = btoa(unescape(encodeURIComponent(json)));
+      location.hash = base64;
+    }
 
-// Reset 버튼 기능
-resetBtn.addEventListener('click', () => {
-  cells.forEach((cell, index) => {
-    cell.innerHTML = '';
-    localStorage.removeItem(`sticker-${index}`);
-  });
-});
+    // 해시에서 복원
+    function restoreFromHash() {
+      const hash = location.hash.replace(/^#/, '');
+      if (!hash) return;
+      try {
+        const json = decodeURIComponent(escape(atob(hash)));
+        const state = JSON.parse(json);
+        Object.keys(state).forEach(index => {
+          const src = state[index];
+          if (cells[index]) {
+            cells[index].innerHTML = `<img src="${src}" class="cell-sticker" alt="sticker">`;
+          }
+        });
+      } catch (e) {
+        console.warn('Invalid sticker state in URL hash');
+      }
+    }
+
+    // Reset
+    resetBtn.addEventListener('click', () => {
+      cells.forEach(cell => cell.innerHTML = '');
+      location.hash = '';
+    });
+
+    // 페이지 로드 시 상태 복원
+    restoreFromHash();
   </script>
-
 </body>
 </html>
